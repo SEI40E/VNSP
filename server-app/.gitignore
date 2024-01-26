@@ -1,0 +1,29 @@
+# Dependency directories
+node_modules/
+
+# Environment configuration files
+.env
+
+# Build outputs
+/dist/
+/build/
+/out/
+
+# OS generated files
+.DS_Store
+
+# IDE specific files
+.idea/
+*.iml
+.vscode/
+
+# Logs
+logs/
+*.log
+
+# Optional: database files, if local databases are used
+*.db
+*.sql
+
+# Optional: production specific files
+/production/
