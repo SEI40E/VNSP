@@ -1,8 +1,17 @@
-# React + Vite
+# VEHICLE NAVIGATION SYSTEM
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a prototype for rendering map using Vite + React./
+Learning resource for vite:- https://vitejs.dev/guide/ /
+Learning resource for react:- https://react.dev/learn /
 
-Currently, two official plugins are available:
+# REACT-LEAFLET
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Current prototype use React-Leaflet as it is a open source map container software /
+Resources for getting started:- https://react-leaflet.js.org/docs/start-introduction/ /
+
+# Dependencies 
+latest node /
+react-leaflet dependencies :- /
+npm i react-leaflet /
+npm i leaflet-control-geocoder /
+npm i leaflet-routing-machine /
