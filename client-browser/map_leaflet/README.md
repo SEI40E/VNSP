@@ -1,17 +1,17 @@
 # VEHICLE NAVIGATION SYSTEM
 
-This is a prototype for rendering map using Vite + React./
-Learning resource for vite:- https://vitejs.dev/guide/ /
-Learning resource for react:- https://react.dev/learn /
+This is a prototype for rendering map using Vite + React.<br/>
+Learning resource for vite:- https://vitejs.dev/guide/ <br/>
+Learning resource for react:- https://react.dev/learn <br/>
 
 # REACT-LEAFLET
 
-Current prototype use React-Leaflet as it is a open source map container software /
-Resources for getting started:- https://react-leaflet.js.org/docs/start-introduction/ /
+Current prototype use React-Leaflet as it is a open source map container software <br/>
+Resources for getting started:- https://react-leaflet.js.org/docs/start-introduction/ <br/>
 
 # Dependencies 
-latest node /
-react-leaflet dependencies :- /
-npm i react-leaflet /
-npm i leaflet-control-geocoder /
-npm i leaflet-routing-machine /
+latest node <br/>
+react-leaflet dependencies :- <br/>
+npm i react-leaflet <br/>
+npm i leaflet-control-geocoder <br/>
+npm i leaflet-routing-machine <br/>
