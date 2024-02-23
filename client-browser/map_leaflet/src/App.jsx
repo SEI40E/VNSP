@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRef } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import './App.css';
@@ -41,6 +41,32 @@ const SimpleMap = () => {
   );
 };
 
+const LocationDisplay = () => {
+  const [location, setLocation] = useState({ latitude: null, longitude: null });
+
+  useEffect(() => {
+      const watchId = navigator.geolocation.watchPosition(
+          (position) => {
+              const { latitude, longitude } = position.coords;
+              setLocation({ latitude, longitude });
+              console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
+          },
+          console.error
+      );
+
+      return () => {
+          navigator.geolocation.clearWatch(watchId);
+      };
+  }, []);
+
+  return (
+      <div>
+          <p>Latitude: {location.latitude}</p>
+          <p>Longitude: {location.longitude}</p>
+      </div>
+  );
+};
+
 function App() {
 
   const [fromLocation, setFromLocation] = useState('');
@@ -72,6 +98,7 @@ function App() {
           <button type='submit'>Search</button>
         </div>
       </form>
+      <LocationDisplay/>
       <SimpleMap />
     </div>
   );
