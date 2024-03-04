@@ -24,16 +24,16 @@ const App = () => {
     const handleSubmitFunction = (e) => {
         e.preventDefault();
         const alreadyExists = vehicleVariable.some(
-            (vehicle) => vehicle.Name.toLowerCase() === newStartVariable.toLowerCase()
+            (vehicle) => vehicle.Start.toLowerCase() === newStartVariable.toLowerCase()
         );
 
         if (alreadyExists) {
             const vehicleToUpdate = vehicleVariable.find(
-                (vehicle) => vehicle.Name.toLowerCase() === newStartVariable.toLowerCase()
+                (vehicle) => vehicle.Start.toLowerCase() === newStartVariable.toLowerCase()
             );
 
             if (vehicleToUpdate) {
-                if (window.confirm(`${vehicleToUpdate.Name} has already been added to the vehicle List, do you want to replace the old  with new one?`)) {
+                if (window.confirm(`${vehicleToUpdate.Start} has already been added to the vehicle List, do you want to replace the old  with new one?`)) {
                     axios
                         .put(`${baseUrl}/${vehicleToUpdate.id}`, {
                             Name: newStartVariable,
@@ -175,18 +175,21 @@ const App = () => {
                                 filteredvehicles.map(vehicle=>(
                                         <div className="container">
                                             <div className="vehicle-item" key={vehicle.id}>
-
-
                                                 <div className="content">
                                                     <div className="details">
-                                                        <h2>{vehicle.Start} <br></br> <span>{vehicle.Type} </span> <span>
-                                                             <a href={`https://www.google.com/maps/Start/${vehicle.Start}`} target="_blank">
-                                                                https://www.google.com/maps/Start/{vehicle.Start}
+                                                        <h2>Start: {vehicle.Start} <br></br>  <span>
+                                                             <a href={`https://www.google.com/maps/place/${vehicle.Start}`} target="_blank">
+                                                                https://www.google.com/maps/place/{vehicle.Start}
                                                                 </a>
                                                         </span></h2>
                                                         <div className="data">
 
-                                                            <h3>{vehicle.Start}<br></br><span>Start</span></h3>
+                                                            <h3>Destination:{vehicle.Destination} <br></br> <span>
+                                                             <a href={`https://www.google.com/maps/place/${vehicle.Destination}`} target="_blank">
+                                                                https://www.google.com/maps/place/{vehicle.Destination}
+                                                                </a>
+                                                        </span></h3>
+                                                            <h4>Type:{vehicle.Type}</h4>
 
                                                         </div>
                                                         <div className="actionBtn">
