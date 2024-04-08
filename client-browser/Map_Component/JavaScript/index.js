@@ -16,7 +16,7 @@ var control = L.Routing.control(L.extend(window.lrmConfig, {
 	waypoints: [],
 	geocoder: geocoder,
 	reverseWaypoints: true,
-	showAlternatives: true,
+	showAlternatives: false,
 	fitSelectedRoutes: true,
 	altLineOptions: {
 		styles: [
@@ -30,7 +30,6 @@ var control = L.Routing.control(L.extend(window.lrmConfig, {
 	e.routes[0].coordinates.forEach(function(coord, index) {
 		setTimeout(() => {
 			marker.setLatLng([coord.lat, coord.lng])
-			console.log([coord.lat, coord.lng]);
 		},100 * index)
 	})
 });
