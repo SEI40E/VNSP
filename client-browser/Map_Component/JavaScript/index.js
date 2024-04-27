@@ -1,4 +1,8 @@
 
+if (typeof global.L === 'undefined') {
+	global.L = require('leaflet');
+}
+
 var map = L.map('map').setView([37.978977321661155, -121.30170588862478],16);
 
 L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {

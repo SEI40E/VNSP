@@ -1,10 +1,23 @@
-// Mock the Leaflet library
-// Import the actual Leaflet module
-const actualLeaflet = jest.requireActual('leaflet');
+const TextEncodingPolyfill = require('text-encoding');
 
-// Mock the Leaflet library
-const leafletMock = jest.mock('leaflet', () => {
-    const L = {
+global.TextEncoder = TextEncodingPolyfill.TextEncoder;
+global.TextDecoder = TextEncodingPolyfill.TextDecoder;
+
+const jsdom = require('jsdom');
+
+// Create a mock DOM environment
+const { JSDOM } = jsdom;
+const dom = new JSDOM('<div id="map"></div>');
+
+// Get the mock window object
+global.window = dom.window;
+global.document = dom.window.document;
+
+// Mock Leaflet and assign the global.L variable
+jest.mock('leaflet', () => {
+    const actualLeaflet = jest.requireActual('leaflet');
+
+    const leafletMock = {
         map: jest.fn(),
         tileLayer: jest.fn(),
         icon: jest.fn(),
@@ -22,7 +35,10 @@ const leafletMock = jest.mock('leaflet', () => {
         latLng: jest.fn().mockImplementation(actualLeaflet.latLng),
         featureGroup: jest.fn().mockImplementation(actualLeaflet.featureGroup),
     };
-    return L;
+
+    global.L = leafletMock;
+
+    return leafletMock;
 });
 
 const mockNavigator = {
@@ -33,17 +49,29 @@ const mockNavigator = {
 
 global.navigator = mockNavigator;
 
-// Mock the Leaflet library before importing the index.js file
-//jest.mock('leaflet', () => leafletMock);
-
-// Import the relevant functions
+// Import the relevant functions after setting up the mocks
 const { onLocationFound, getPosition } = require('../client-browser/Map_Component/JavaScript/index.js');
 
 describe('onLocationFound', () => {
     test('calls the necessary functions', () => {
         const e = { latlng: { lat: 37.978977321661155, lng: -121.30170588862478 } };
+
+        // Mock the functions that onLocationFound is expected to call
+        const mockFunction1 = jest.fn();
+        const mockFunction2 = jest.fn();
+
+        jest.mock('../client-browser/Map_Component/JavaScript/index.js', () => ({
+            onLocationFound: () => {
+                mockFunction1();
+                mockFunction2();
+            },
+        }));
+
         onLocationFound(e);
-        // Add assertions to verify that the necessary functions were called
+
+        // Add assertions to verify that the mocked functions were called
+        expect(mockFunction1).toHaveBeenCalled();
+        expect(mockFunction2).toHaveBeenCalled();
     });
 });
 
@@ -56,7 +84,26 @@ describe('getPosition', () => {
                 accuracy: 10,
             },
         };
+
+        // Mock the functions that getPosition is expected to call
+        const mockRemoveLayer = jest.fn();
+        const mockMarker = jest.fn();
+        const mockFeatureGroup = jest.fn();
+
+        jest.mock('leaflet', () => ({
+            marker: jest.fn().mockReturnValue({ setLatLng: jest.fn() }),
+            featureGroup: jest.fn().mockReturnValue({ addTo: jest.fn() }),
+        }));
+
+        global.map = {
+            removeLayer: mockRemoveLayer,
+        };
+
         getPosition(position);
+
         // Add assertions to verify the expected behavior
+        expect(mockRemoveLayer).toHaveBeenCalledTimes(1);
+        expect(mockMarker).toHaveBeenCalledTimes(1);
+        expect(mockFeatureGroup).toHaveBeenCalledTimes(1);
     });
 });
